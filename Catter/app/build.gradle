@@ -1,0 +1,121 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.dschumerth.catter"
+        minSdk 23
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+    buildFeatures {
+        viewBinding true
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion "1.3.2"
+    }
+}
+
+ext {
+    groupVersions = [
+            navVersion       : '2.5.3',
+            lifecycle_version: '2.6.0-alpha01',
+            roomVersion      : '2.4.3',
+            pagingVersion    : '3.1.1',
+            lottieVersion    : '5.2.0',
+            retrofitVersion  : '2.9.0',
+            mockk            : '1.13.4',
+            swipeVersion     : '1.1.0',
+            compose             : "1.3.1",
+            compose_activity    : "1.6.1",
+            compose_material3   : "1.0.1",
+            compose_paging      : "1.0.0-alpha17",
+            coroutines         : "1.6.4",
+            accompanist         : "0.27.0"]
+}
+
+dependencies {
+    //Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${groupVersions.coroutines}"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${groupVersions.coroutines}"
+
+    //Compose
+    implementation "androidx.activity:activity-compose:${groupVersions.compose_activity}"
+    implementation "androidx.compose.ui:ui:${groupVersions.compose}"
+    implementation "androidx.compose.ui:ui-graphics:${groupVersions.compose}"
+    implementation "androidx.compose.ui:ui-tooling:${groupVersions.compose}"
+    implementation "androidx.compose.ui:ui-tooling-preview:${groupVersions.compose}"
+    implementation "androidx.compose.material3:material3:${groupVersions.compose_material3}"
+    implementation "androidx.compose.runtime:runtime:${groupVersions.compose}"
+    implementation "androidx.compose.runtime:runtime-livedata:${groupVersions.compose}"
+    implementation "androidx.compose.foundation:foundation:${groupVersions.compose}"
+    implementation "androidx.compose.foundation:foundation-layout:${groupVersions.compose}"
+    implementation "androidx.compose.animation:animation:${groupVersions.compose}"
+    implementation "com.google.accompanist:accompanist-navigation-animation:${groupVersions.accompanist}"
+    implementation "androidx.paging:paging-compose:${groupVersions.compose_paging}"
+
+    //mockk
+    testImplementation "io.mockk:mockk:${groupVersions.mockk}"
+    androidTestImplementation "io.mockk:mockk-android:${groupVersions.mockk}"
+
+    //LifeCycle
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${groupVersions.lifecycleVersion}"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:${groupVersions.lifecycleVersion}"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:${groupVersions.lifecycleVersion}"
+
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:${groupVersions.retrofitVersion}"
+    implementation "com.squareup.retrofit2:converter-gson:${groupVersions.retrofitVersion}"
+    implementation "com.google.code.gson:gson:${groupVersions.retrofitVersion}"
+
+    //Room
+    implementation "androidx.room:room-runtime:${groupVersions.roomVersion}"
+    implementation "androidx.room:room-ktx:${groupVersions.roomVersion}"
+    kapt "androidx.room:room-compiler:${groupVersions.roomVersion}"
+
+    implementation "androidx.paging:paging-runtime-ktx:${groupVersions.pagingVersion}"
+    implementation "androidx.paging:paging-common-ktx:${groupVersions.pagingVersion}"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:${groupVersions.swipeVersion}"
+
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+    androidTestImplementation "androidx.room:room-testing:2.4.3"
+
+    //
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.mediarouter:mediarouter:1.3.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    //modules
+    implementation project(path: ':abstractions')
+    implementation project(path: ':api')
+    implementation project(path: ':database')
+}
