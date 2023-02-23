@@ -12,15 +12,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.grid.LazyGridState
-import androidx.compose.foundation.lazy.grid.rememberLazyGridState
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -73,28 +68,11 @@ fun CatterApp(catViewModel: CatterVM) {
                 )
             }
         ) { innerPadding ->
-            val listState: LazyListState = rememberLazyListState()
-            val gridState: LazyGridState = rememberLazyGridState()
-
             CatterNavHost(
                 navController = navController,
                 modifier = Modifier.padding(innerPadding),
                 viewModel = catViewModel
             )
-
-            LaunchedEffect(listState) {
-                gridState.scrollToItem(
-                    listState.firstVisibleItemIndex,
-                    listState.firstVisibleItemScrollOffset
-                )
-            }
-
-            LaunchedEffect(gridState) {
-                listState.scrollToItem(
-                    gridState.firstVisibleItemIndex,
-                    gridState.firstVisibleItemScrollOffset
-                )
-            }
         }
     }
 }
