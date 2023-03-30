@@ -29,16 +29,4 @@ class Repository(private val catDao: CatDao?) {
     suspend fun getFromApiImage(): ResponseBody {
         return RetrofitInstance.API.getImage()
     }
-
-    suspend fun getGif(): ResponseBody {
-        return RetrofitInstance.API.getGif()
-    }
-
-    suspend fun getCats(): ResponseBody {
-        return RetrofitInstance.API.getCats()
-    }
-
-    suspend fun getCatFromId(id: Int): ResponseBody {
-        return RetrofitInstance.API.getCat(id)
-    }
 }
